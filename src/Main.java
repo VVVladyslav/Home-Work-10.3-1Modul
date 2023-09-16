@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collection;
@@ -10,8 +8,16 @@ import java.util.Comparator;
 public class Main {
     public static void main(String[] args) throws IOException {
 
+        BufferedWriter writer = new BufferedWriter(new FileWriter("file.txt1"));
 
-        BufferedReader read = new BufferedReader(new FileReader("d:/1/file.txt1"));
+        String text1 = "the day   is sunny the the\n";
+        String text2 = "the sunny is       is\n";
+
+        writer.write(text1);
+        writer.write(text2);
+        writer.close();
+
+        BufferedReader read = new BufferedReader(new FileReader("file.txt1"));
 
         String c;
         String result = "";
@@ -19,17 +25,14 @@ public class Main {
         while ((c = read.readLine()) != null) {
             result = result + c + " ";
         }
-        System.out.println(result);
 
         result = result.replaceAll("[\\s]{2,}", " ");
 
         String[] newResult = result.split(" ");
 
-        System.out.println(Arrays.toString(newResult));
 
         Arrays.sort(newResult);
 
-        System.out.println(Arrays.toString(newResult));
         int count = 0;
         int longOfArrey = newResult.length;
         int s = 0;
@@ -70,7 +73,6 @@ public class Main {
         }
         Arrays.sort(resSec, Collections.reverseOrder());
 
-        System.out.println("rrr" + resSec);
         String last = "";
        for (String fin : resSec){
            String fin1[] = fin.split(" ");
