@@ -8,15 +8,6 @@ import java.util.Comparator;
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter("file.txt1"));
-
-        String text1 = "the day   is sunny the the\n";
-        String text2 = "the sunny is       is\n";
-
-        writer.write(text1);
-        writer.write(text2);
-        writer.close();
-
         BufferedReader read = new BufferedReader(new FileReader("file.txt1"));
 
         String c;
@@ -33,48 +24,44 @@ public class Main {
 
         Arrays.sort(newResult);
 
-        int count = 0;
         int longOfArrey = newResult.length;
         int s = 0;
-        Object[] elem = new Object[longOfArrey];
+        String[] elem = new String[longOfArrey];
 
-        Elements elements = new Elements();
-        int colichesvo = 0;
+        int Colichestvo = 0;
+        String Slovo = "";
+
+        //Elements elements = new Elements();
         for (int i = 0; i < newResult.length; i++) {
             if (i == 0){
-                  elements = new Elements();
-                  elements.slovo = newResult[i];
-                  elements.colichestvo = 1;
+                Slovo = newResult[i];
+                Colichestvo = 1;
                 continue;
             }
 
-            if (newResult[i].equals(elements.slovo)){
-                elements.colichestvo = elements.colichestvo + 1;
+            if (newResult[i].equals(Slovo)){
+                Colichestvo = Colichestvo + 1;
             }else {
-                if (!elements.slovo.isEmpty()) {
-                    elem[s] = elements;
-                    elements = new Elements();
-                    elements.slovo = newResult[i];
-                    elements.colichestvo = 1;
+                    elem[s] =  Colichestvo + " " + Slovo;
+                    Slovo = newResult[i];
+                    Colichestvo = 1;
                     s = s + 1;
-                }
             }
         }
-        elem[s] = elements;
+        elem[s] = Colichestvo + " " + Slovo;
         s++;
-        String[] resSec = new String[s];
+
+        String[] lest = new String[s];
 
         for (int i = 0; i < s; i++) {
-
-            int col = ((Elements) elem[i]).colichestvo;
-            String come = ((Elements) elem[i]).slovo;
-            String aboba = Integer.toString(col) + " " + come;
-            resSec[i] = aboba;
+            if (elem[i] != null){
+                lest[i] = elem[i];
+            }
         }
-        Arrays.sort(resSec, Collections.reverseOrder());
+        Arrays.sort(lest, Collections.reverseOrder());
 
         String last = "";
-       for (String fin : resSec){
+       for (String fin : lest){
            String fin1[] = fin.split(" ");
            last = fin1[1] + " " + fin1[0];
            System.out.println(last);
